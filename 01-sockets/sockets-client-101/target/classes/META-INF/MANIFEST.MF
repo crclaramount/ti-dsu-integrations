@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Built-By: oscar.umana
+Build-Jdk: 17.0.1
+Main-Class: com.telusinternational.google.classroom.integrations.SocketC
+ lientManager
+Created-By: Maven Integration for Eclipse
+

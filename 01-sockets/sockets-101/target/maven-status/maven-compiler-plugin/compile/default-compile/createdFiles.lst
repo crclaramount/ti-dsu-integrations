@@ -1,0 +1,9 @@
+com\telusinternational\google\classroom\integrations\example1\SimpleSocket.class
+com\telusinternational\google\classroom\integrations\example3\MultiThreadedSocket.class
+com\telusinternational\google\classroom\integrations\example2\ContinuousSocket.class
+com\telusinternational\google\classroom\integrations\example4\MultiThreadedRetainedSocket.class
+com\telusinternational\google\classroom\integrations\example3\ThreadSocket.class
+com\telusinternational\google\classroom\integrations\example4\ThreadSocket.class
+com\telusinternational\google\classroom\integrations\models\Person.class
+com\telusinternational\google\classroom\integrations\util\InputProcessing.class
+com\telusinternational\google\classroom\integrations\SocketManager.class

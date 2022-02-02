@@ -1,13 +1,13 @@
 package com.telusinternational.google.classroom.integrations.example1;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.telusinternational.google.classroom.integrations.example2.ContinuousSocket;
-import com.telusinternational.google.classroom.integrations.example3.MultiThreadedSocket;
+import com.telusinternational.google.classroom.integrations.models.Person;
+import com.telusinternational.google.classroom.integrations.util.InputProcessing;
 
 /***
  * This class will serve as a simple example on how to build a Socket connection in the Server Side
@@ -17,7 +17,7 @@ import com.telusinternational.google.classroom.integrations.example3.MultiThread
 public class SimpleSocket {
 	
 	private static void print(String message) {
-		System.out.println("[" + new java.util.Date().toLocaleString() + "] [" + SimpleSocket.class.getSimpleName() + "]: " + message);
+		System.out.println("[" + new java.util.Date() + "] [" + SimpleSocket.class.getSimpleName() + "]: " + message);
 	}
 	
 	/**
@@ -28,25 +28,25 @@ public class SimpleSocket {
 	public static void handleConnections(int port) throws IOException {
 		
 		print("Socket.Server[bind]");
-		
 		ServerSocket ss = new ServerSocket(port);
 		print("Socket.Server[listen] [port: "+port+"]");
 		
 		// This line of code will stay locked until a request is received
 		Socket s = ss.accept();
+		
 		// If we reach this line of code, someone established a session with us
 		print("Socket.Server[accept] Session Connection Received!");
 		
 		// Now we read the content of the message received as a bytes stream
-		DataInputStream dis = new DataInputStream(s.getInputStream());
-		String message = (String) dis.readUTF();
-		print("Socket.Server[read]: <" + message + ">");
+		ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
+		Person person = InputProcessing.readObject(dis);
 		
+		print("Socket.Server[read]: <" + person.getClass().getSimpleName() + ">");
 		// If you have any business logic should go here
-		print("Socket.Server[business-logic]: Processing Message...");
-		
+		if(person != null) person.greet();
+		InputProcessing.writeToFile(person);
 		DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-		String response = "Your message has been processed";
+		String response = "Your object has been processed";
 		print("Socket.Server[write]");
 		print("<"+response+">");
 		dout.writeUTF("[" + SimpleSocket.class.getSimpleName() + "] " + response);

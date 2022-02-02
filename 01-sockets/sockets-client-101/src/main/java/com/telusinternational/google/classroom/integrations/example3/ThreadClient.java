@@ -1,18 +1,20 @@
 package com.telusinternational.google.classroom.integrations.example3;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import com.telusinternational.google.classroom.integrations.models.Person;
 
 public class ThreadClient extends Thread {
 
-	private String message = null;
+	private Person person = null;
 	private Socket s = null;
 	private Integer pendingResponses = 0;
 	
-	public ThreadClient(String message, Socket s, Integer pendingResponses) {
-		this.message = message;
+	public ThreadClient(Person person, Socket s, Integer pendingResponses) {
+		this.person = person;
 		this.s = s;
 		this.pendingResponses = pendingResponses;
 	}
@@ -21,8 +23,8 @@ public class ThreadClient extends Thread {
 	public void run() {
 		try {
 			DataInputStream din = new DataInputStream(s.getInputStream());  
-			DataOutputStream dout = new DataOutputStream(s.getOutputStream());
-			dout.writeUTF(message);
+			ObjectOutputStream dout = new ObjectOutputStream(s.getOutputStream());
+			dout.writeObject(person);
 			dout.flush();
 			String receivedMessage = din.readUTF();
 			System.out.println("[THREAD] Server says: " + receivedMessage);

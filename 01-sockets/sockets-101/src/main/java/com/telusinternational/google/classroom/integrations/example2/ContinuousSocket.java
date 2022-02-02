@@ -1,14 +1,13 @@
 package com.telusinternational.google.classroom.integrations.example2;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.telusinternational.google.classroom.integrations.example1.SimpleSocket;
-import com.telusinternational.google.classroom.integrations.example3.MultiThreadedSocket;
-import com.telusinternational.google.classroom.integrations.example3.ThreadSocket;
+import com.telusinternational.google.classroom.integrations.models.Person;
+import com.telusinternational.google.classroom.integrations.util.InputProcessing;
 
 /***
  * This class will serve as a simple example on how to build a Socket connection in the Server Side
@@ -19,7 +18,7 @@ import com.telusinternational.google.classroom.integrations.example3.ThreadSocke
 public class ContinuousSocket {
 	
 	private static void print(String message) {
-		System.out.println("[" + new java.util.Date().toLocaleString() + "] [" + ContinuousSocket.class.getSimpleName() + "]: " + message);
+		System.out.println("[" + new java.util.Date() + "] [" + ContinuousSocket.class.getSimpleName() + "]: " + message);
 	}
 	
 	/**
@@ -34,20 +33,21 @@ public class ContinuousSocket {
 		ServerSocket ss = new ServerSocket(port);
 		print("Socket.Server[listen] [port: "+port+"]");
 		
-		String message = "";
-		while(!message.equals("TERMINATE")) {
+		Person person = null;
+		while(person == null || !person.getName().isEmpty()) {
 			// This line of code will stay locked until a request is received
 			Socket s = ss.accept();
 			// If we reach this line of code, someone established a session with us
 			print("Socket.Server[accept] Session Connection Received!");
 			
 			// Now we read the content of the message received as a bytes stream
-			DataInputStream dis = new DataInputStream(s.getInputStream());
-			message = (String) dis.readUTF();
-			print("Socket.Server[read]");
-			print("<" + message + ">");
+			ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
+			person = InputProcessing.readObject(dis);
 			
+			print("Socket.Server[read]: <" + person.getClass().getSimpleName() + ">");
 			// If you have any business logic should go here
+			if(person != null && !person.getName().isEmpty()) person.greet();
+			InputProcessing.writeToFile(person);
 			
 			DataOutputStream dout = new DataOutputStream(s.getOutputStream());
 			String response = "Your message has been processed";
@@ -55,14 +55,15 @@ public class ContinuousSocket {
 			print("<"+response+">");
 			dout.writeUTF("[" + ContinuousSocket.class.getSimpleName() + "]: " + response);
 			dout.flush();
-			dis.close();
 			dout.close();
 			// By destroying the socket the client can no longer use the same same Socket instance the next time
+			dis.close();
 			s.close();
 			print("=====Waiting for another connection=====");
 		}
 		
 		print("Socket.Server[close]");
+		
 		ss.close();
 	}
 	

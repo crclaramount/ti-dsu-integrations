@@ -1,9 +1,12 @@
 package com.telusinternational.google.classroom.integrations.example3;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
+
+import com.telusinternational.google.classroom.integrations.models.Person;
+import com.telusinternational.google.classroom.integrations.util.InputProcessing;
 
 public class ThreadSocket extends Thread {
 
@@ -18,23 +21,26 @@ public class ThreadSocket extends Thread {
 	}
 
 	private void print(String message) {
-		System.out.println("["+id+"] [" + new java.util.Date().toLocaleString() + "] [" + ThreadSocket.class.getSimpleName() + "]: " + message);
+		System.out.println("["+id+"] [" + new java.util.Date() + "] [" + ThreadSocket.class.getSimpleName() + "]: " + message);
 	}
 	
 	@Override
 	public void run() {
 		try {
 			// Now we read the content of the message received as a bytes stream
-			DataInputStream dis = new DataInputStream(s.getInputStream());
-			String message = (String) dis.readUTF();
+			ObjectInputStream dis = new ObjectInputStream(s.getInputStream());
+			Person person = InputProcessing.readObject(dis);
 			print("Socket.Server[read]");
-			print("<" + message + ">");
-			this.handler.message = message;
+			print("<" + person.getClass().getSimpleName() + ">");
 			// If you have any business logic should go here
 			print("Socket.Server[business-logic]: Processing Message...");
 			
 			// If you have any business logic should go here
-			
+			if(person != null && !person.getName().isEmpty()) person.greet();
+			InputProcessing.writeToFile(person);
+			if(person.getName() == "") {
+				this.handler.message = "TERMINATE";
+			}
 			DataOutputStream dout = new DataOutputStream(s.getOutputStream());
 			String response = "Your message has been processed";
 			print("Socket.Server[write]");

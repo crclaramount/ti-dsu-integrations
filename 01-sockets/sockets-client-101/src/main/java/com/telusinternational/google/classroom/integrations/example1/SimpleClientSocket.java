@@ -2,30 +2,44 @@ package com.telusinternational.google.classroom.integrations.example1;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import com.telusinternational.google.classroom.integrations.example2.ContinuousClientSocket;
-import com.telusinternational.google.classroom.integrations.example3.MultiThreadedClientSocket;
+import com.telusinternational.google.classroom.integrations.models.Person;
+
 
 public class SimpleClientSocket {
 	
 	public static void send(int port) throws UnknownHostException, IOException {
 		Socket s = new Socket("localhost",port);
 		DataInputStream din = new DataInputStream(s.getInputStream());
-		DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+		ObjectOutputStream dout = new ObjectOutputStream(s.getOutputStream());
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		//retrieve input data
 		System.out.println("=========================================");
-		System.out.print("Enter your message: ");
-		String inputMessage = br.readLine();
-		dout.writeUTF(inputMessage);
+		System.out.print("Enter your name: ");
+		String inputName = br.readLine();
+		System.out.println("=========================================");
+		System.out.print("Enter your age: ");
+		int inputAge;
+		try{
+			inputAge = Integer.parseInt(br.readLine());
+		}catch(NumberFormatException e) {
+			inputAge = Integer.parseInt("-1");
+		}
+		//create new object to be sent
+		Person person = new Person(inputName, inputAge);
+		
+		dout.writeObject(person);
 		dout.flush();
+		//receive response from the server
 		String receivedMessage = din.readUTF();
 		System.out.println("Server says: " + receivedMessage);
 		System.out.println("=========================================");
+		s.close();
 	}
 	
 	public static void main(String[] args) {

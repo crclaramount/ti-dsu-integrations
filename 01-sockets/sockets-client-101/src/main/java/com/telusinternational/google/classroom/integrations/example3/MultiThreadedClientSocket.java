@@ -1,16 +1,11 @@
 package com.telusinternational.google.classroom.integrations.example3;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 
-import com.telusinternational.google.classroom.integrations.example1.SimpleClientSocket;
-import com.telusinternational.google.classroom.integrations.example2.ContinuousClientSocket;
+import com.telusinternational.google.classroom.integrations.models.Person;
 
 public class MultiThreadedClientSocket {
 	
@@ -18,17 +13,29 @@ public class MultiThreadedClientSocket {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Integer pendingResponses = 0;
-		String inputMessage = "";
-		
-		while(!inputMessage.equals("TERMINATE")){
+		String inputName = null;
+		do {
 			Socket s = new Socket("localhost", port);
-			System.out.println("[MAIN] =========================================");
-			System.out.print("[MAIN] Enter your message: ");
-			inputMessage = br.readLine();
+			//retrieve input data
+			Thread.sleep(1000);
+			System.out.println("=========================================");
+			System.out.print("Enter your name: ");
+			inputName = br.readLine();
+			System.out.println("=========================================");
+			System.out.print("Enter your age: ");
+			int inputAge;
+			try{
+				inputAge = Integer.parseInt(br.readLine());
+			}catch(NumberFormatException e) {
+				inputAge = Integer.parseInt("-1");
+			}
+			//create new object to be sent
+			Person person = new Person(inputName, inputAge);
 			pendingResponses = pendingResponses + 1;
-			ThreadClient tc = new ThreadClient(inputMessage, s, pendingResponses);
+			ThreadClient tc = new ThreadClient(person, s, pendingResponses);
 			tc.start();
-		}
+		} while (!inputName.equals(""));
+		
 		System.out.println("[MAIN] Terminating...");
 		br.close();
 		System.out.println("[MAIN] Closing connections");

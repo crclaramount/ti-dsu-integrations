@@ -1,7 +1,5 @@
 package com.telusinternational.google.classroom.integrations.example3;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,7 +15,7 @@ public class MultiThreadedSocket {
 	public String message;
 	
 	private static void print(String message) {
-		System.out.println("["+String.format("%04d" , 0)+"] [" + new java.util.Date().toLocaleString() + "] [" + 
+		System.out.println("["+String.format("%04d" , 0)+"] [" + new java.util.Date() + "] [" + 
 				MultiThreadedSocket.class.getSimpleName() + "]: " + message);
 	}
 	
@@ -35,19 +33,16 @@ public class MultiThreadedSocket {
 		print("Socket.Server[listen] [port: "+port+"]");
 		
 		long threadCount = 1;
-		
-		String message = "";
-		while(!message.equals("TERMINATE")) {
+		 message = "";
+		 do{
 			// This line of code will stay locked until a request is received
 			Socket s = ss.accept();
 			// If we reach this line of code, someone established a session with us
 			print("Socket.Server[accept] Session Connection Received!");
 			
-			DataInputStream dis = new DataInputStream(s.getInputStream());
-			
 			ThreadSocket ts = new ThreadSocket(s, this, String.format("%04d" , threadCount++));
 			ts.start();
-		}
+		}while(!message.equals("TERMINATE"));
 		ss.close();
 	}
 	

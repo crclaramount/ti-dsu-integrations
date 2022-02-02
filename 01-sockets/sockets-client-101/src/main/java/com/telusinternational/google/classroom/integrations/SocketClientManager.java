@@ -1,13 +1,8 @@
 package com.telusinternational.google.classroom.integrations;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import com.telusinternational.google.classroom.integrations.example1.SimpleClientSocket;
 import com.telusinternational.google.classroom.integrations.example2.ContinuousClientSocket;
@@ -16,7 +11,6 @@ import com.telusinternational.google.classroom.integrations.example3.MultiThread
 public class SocketClientManager {
 	
 	public static void main(String[] args) {
-		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			System.out.println("=========CLIENT SOCKET MANAGER===========");
