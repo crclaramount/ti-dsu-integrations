@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="socket-server:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/socket_server_jar</output-path>
+    <root id="archive" name="socket-server.jar">
+      <element id="module-output" name="socket-server" />
+    </root>
+  </artifact>
+</component>
