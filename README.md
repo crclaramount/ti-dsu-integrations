@@ -78,8 +78,8 @@ Reference video: https://www.youtube.com/watch?v=BqBKEXLqdvI
 - Download and Install Maven 3.x.x
 - Ensure MAVEN_HOME environment variable is registered pointing to your Maven Root folder (the folder containing /bin and /conf)
 - Download and Install an IDE for Java development compatible with Maven
-- Download WildFly in its most recent version from section 4.1: https://www.wildfly.org/downloads/
-- Ensure you follow the steps in this link for setting up WildFly with a queue named TestQ:  http://middlewaremagic.com/jboss/?p=2739
+- Download WildFly in its most recent version: https://www.wildfly.org/downloads/
+- Ensure you follow the steps in this link for setting up WildFly with a queue named TestQ (section 4.1):  http://middlewaremagic.com/jboss/?p=2739 (also detailed below)
 
 
 ```
