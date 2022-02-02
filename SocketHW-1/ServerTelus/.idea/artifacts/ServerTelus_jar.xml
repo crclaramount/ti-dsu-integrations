@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ServerTelus:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ServerTelus_jar</output-path>
+    <root id="archive" name="ServerTelus.jar">
+      <element id="module-output" name="ServerTelus" />
+    </root>
+  </artifact>
+</component>
