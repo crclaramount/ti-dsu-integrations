@@ -47,11 +47,11 @@ public class Person implements Serializable{
 	
 	
 }
-		```
+```
     
 - The server will receive this object, deserialize it and store it in the target folder with the `writeToFile(Object o)` function with a random 5 digit number name: ex: 48614.bin 
   
-  ```java
+```java
   public static void writeToFile(Object o) throws IOException {
 		//generate a random 5 digit number to create a random name
 		SecureRandom random = new SecureRandom();
@@ -62,5 +62,5 @@ public class Person implements Serializable{
 		objectOutputStream.writeObject(o);
 		objectOutputStream.close();
 	}
-	```
+```
 - Finally it will call of method of the Person class called greet().
