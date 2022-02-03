@@ -95,7 +95,7 @@ then we can choose between send a xml file or a string as a xml
 
 next we have to wait for the client 
 
-to run the client is the same, we have to open a terminal in the client folder, then run javac to compile the file and then run the client. 
+to run the client is the same, we have to open a terminal in the client folder, then run javac to compile the file and then run the client. with `java Client`
 
 ![image](https://user-images.githubusercontent.com/98837103/152026632-4fecb327-f86f-4de9-86b3-84b72c394d0a.png)
 
