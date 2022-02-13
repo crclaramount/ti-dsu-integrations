@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from StringOperationsImplService WSDL service -->
+
+  <service name="StringOperationsImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soap.integrations.classroom.telusinternational.com"/>
+      <parameter name="wsdlServiceElement" value="StringOperationsImplService"/>
+      <parameter name="schemaQualified" value="http://soap.integrations.classroom.telusinternational.com"/>
+      <parameter name="wsdlServicePort" value="StringOperationsImpl"/>
+      <parameter name="className" value="com.telusinternational.classroom.integrations.soap.StringOperationsImpl"/>
+      <parameter name="wsdlPortType" value="StringOperationsImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://soap.integrations.classroom.telusinternational.com" xmlns:retNS="http://soap.integrations.classroom.telusinternational.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="sayHello" qname="operNS:sayHello" returnQName="retNS:sayHelloReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.integrations.classroom.telusinternational.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://soap.integrations.classroom.telusinternational.com" xmlns:retNS="http://soap.integrations.classroom.telusinternational.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="sayGoodbye" qname="operNS:sayGoodbye" returnQName="retNS:sayGoodbyeReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://soap.integrations.classroom.telusinternational.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="sayHello sayGoodbye"/>
+
+  </service>
+</deployment>
