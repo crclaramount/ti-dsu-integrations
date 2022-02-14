@@ -1,0 +1,3 @@
+com\telusinternational\google\classroom\integrations\example1\QueueClientProcessor.class
+com\telusinternational\google\classroom\integrations\WildFlyJmsQueueReader.class
+com\telusinternational\google\classroom\integrations\QueueClientManager.class

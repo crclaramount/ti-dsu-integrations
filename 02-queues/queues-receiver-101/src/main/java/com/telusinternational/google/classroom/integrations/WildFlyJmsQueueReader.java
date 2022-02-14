@@ -19,8 +19,8 @@ import javax.naming.NamingException;
 public class WildFlyJmsQueueReader implements MessageListener {
 	public final static String JMS_CONNECTION_FACTORY_JNDI="jms/RemoteConnectionFactory";
 	  public final static String JMS_QUEUE_JNDI="jms/queue/TestQ";
-	  public final static String JMS_USERNAME="jmsuser";       //  The role for this user is "guest" in ApplicationRealm
-	  public final static String JMS_PASSWORD="123456aB";  
+	  public final static String JMS_USERNAME="pepe";       //  The role for this user is "guest" in ApplicationRealm
+	  public final static String JMS_PASSWORD="pepe";  
 	  public final static String WILDFLY_REMOTING_URL="http-remoting://localhost:8080";
 	 
 	 

@@ -1,0 +1,4 @@
+com\telusinternational\google\classroom\integrations\example1\QueueConsumer.class
+com\telusinternational\google\classroom\integrations\QueueProcessor.class
+com\telusinternational\google\classroom\integrations\QueueManager.class
+com\telusinternational\google\classroom\integrations\WildFlyJmsQueueSender.class
