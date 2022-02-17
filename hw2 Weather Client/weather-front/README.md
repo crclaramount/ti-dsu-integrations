@@ -1,6 +1,5 @@
 # weather-front
 
-[Hola mundo](#Project-setup)
 
 ## Project setup
 ```
