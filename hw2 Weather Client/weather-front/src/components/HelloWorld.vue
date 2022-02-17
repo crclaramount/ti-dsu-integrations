@@ -3,6 +3,24 @@
     <v-row class="text-center">
       <v-col cols="12">
         <div class="hello">
+
+       <v-form>
+            <v-container>
+              <v-row>
+                <v-col cols="12" md="8">
+                  <v-text-field
+                    v-model="path"
+                    label="Path"
+                    required
+                  ></v-text-field>
+                </v-col>
+
+              </v-row>
+            </v-container>
+          </v-form>
+
+
+
           <v-form>
             <v-container>
               <v-row>
@@ -63,21 +81,15 @@
                 <v-list-item-content class="align-center">
                   <v-row no-gutters>
                     <v-col>
-                      <v-card class="pa-2" outlined tile>
-                        Country {{ arrCountry.length }}
-                      </v-card>
+                      <v-card class="pa-2" outlined tile> Country </v-card>
                     </v-col>
 
                     <v-col>
-                      <v-card class="pa-2" outlined tile>
-                        City {{ arrCity.length }}
-                      </v-card>
+                      <v-card class="pa-2" outlined tile> City </v-card>
                     </v-col>
 
                     <v-col>
-                      <v-card class="pa-2" outlined tile>
-                        Date {{ arrDate.length }}
-                      </v-card>
+                      <v-card class="pa-2" outlined tile> Date </v-card>
                     </v-col>
                   </v-row>
                 </v-list-item-content>
@@ -124,7 +136,7 @@
             <p>Is empty</p>
           </div>
 
-          <div v-if="dailyTemperature.length > 0">     
+          <div v-if="dailyTemperature.length > 0">
             <br />
             <hr />
             <br />
@@ -219,6 +231,7 @@ export default {
   name: "HelloWorld",
 
   data: () => ({
+    path : "http://localhost:8080/weatherRestServer/Weather", 
     headers: [
       { text: "City", value: "city" },
       { text: "Country", value: "country" },
@@ -271,7 +284,7 @@ export default {
       };
 
       fetch(
-        `http://localhost:8080/MyFirstProject/Weather?countries=${this.arrCountry.join(
+        `${this.path}?countries=${this.arrCountry.join(
           ","
         )}&cities=${this.arrCity.join(",")}&dates=${this.arrDate.join(",")}`,
         requestOptions
